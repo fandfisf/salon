@@ -18,15 +18,15 @@ class PainterRepositoryImpl @Inject()(@NamedDatabase("default") database:Databas
   override def find(id: Int): Painter = {
     val c = database.getConnection()
     val s = c.createStatement()
-    val rs = s.executeQuery("select count(*) c from PLAY_EVOLUTIONS where 1 = 0 ")
+    val rs = s.executeQuery("select count(*) P from painters ")
     var count = -1
     if (rs.next()){
       count = rs.getInt(1)
     }
-    rs.close();
+    rs.close()
     s.close()
-    c.close();
-    Painter (count, "Vincent", "Van Gogh", "VVG","https://upload.wikimedia.org/wikipedia/commons/d/df/Van_Gogh_self_portrait_as_an_artist.jpg" )
+    c.close()
+    Painter(count, "Vincent", "Van Gogh", "VVG", "https://upload.wikimedia.org/wikipedia/commons/d/df/Van_Gogh_self_portrait_as_an_artist.jpg")
   }
 
   override def insert(painter: Painter): Painter = {null}
