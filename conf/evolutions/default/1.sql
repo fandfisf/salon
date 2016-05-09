@@ -19,7 +19,7 @@ CREATE SEQUENCE SEQ_PAINTERS
     START WITH 10
     INCREMENT BY 1;
 
-INSERT INTO PAINTERS values  (SEQ_PAINTERS.nextval, 'Vincent', 'van Gogh', 'VVG', NULL, NULL, 'https://upload.wikimedia.org/wikipedia/commons/d/df/Van_Gogh_self_portrait_as_an_artist.jpg');
+INSERT INTO PAINTERS values  (SEQ_PAINTERS.nextval, 'Vincent', 'van Gogh', 'The Little Painter Fellow', NULL, NULL, 'https://upload.wikimedia.org/wikipedia/commons/d/df/Van_Gogh_self_portrait_as_an_artist.jpg');
 INSERT INTO PAINTERS values  (SEQ_PAINTERS.nextval, 'San', 'of Africa', 'Pre-historic San People', NULL, NULL, 'https://en.wikipedia.org/wiki/San_people#/media/File:Namibian_Bushmen_Girls.JPG');
 
 create table surface_types (

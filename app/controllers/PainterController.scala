@@ -22,7 +22,7 @@ class PainterController @Inject()(val repo: PainterRepository
                                    , ws: WSClient
                                    , actorSystem: ActorSystem)
                                   (implicit exec: ExecutionContext) extends Controller {
-  implicit val categoryWrites: Writes[Painter] = (
+  implicit val painterWrites: Writes[Painter] = (
     (JsPath \ "painterId").write[Int] and
     (JsPath \ "firstName").write[String] and
       (JsPath \ "lastName").write[String] and
@@ -30,16 +30,14 @@ class PainterController @Inject()(val repo: PainterRepository
       (JsPath \ "picture").write[String])(unlift(Painter.unapply)
   )
 
-
-  /**
-    * Create an Action to render an HTML page with a welcome message.
-    * The configuration in the `routes` file means that this method
-    * will be called when the application receives a `GET` request with
-    * a path of `/`.
-    */
-  def index = Action {
-    val category = repo.find(1)
-    Ok(Json.toJson(category))
+  def index = Action { implicit request =>
+    val paramsWithFirstValue = request.queryString.map { case (k, v) => k -> v(0) }
+    paramsWithFirstValue.get("id") match {
+      case Some(id) => {
+        val painter = repo.find(id.toInt)
+        Ok(Json.toJson(painter))
+      }
+    }
   }
 
 }
