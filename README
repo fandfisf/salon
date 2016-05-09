@@ -12,6 +12,7 @@ Controllers
 ===========
 
 - PainterController.scala:
+
   Returns single "Painter" record.
 
 - HomeController.scala: - NOT Used yet
