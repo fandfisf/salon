@@ -7,7 +7,8 @@ CREATE TABLE  PAINTERS
   PSEUDONYM VARCHAR2(255) NOT NULL,
   BIRTH_DATE DATE ,
   DATE_OF_DEATH DATE,
-  PICTURE VARCHAR2(4096)
+  PICTURE VARCHAR2(4096),
+  VERSION NUMBER(6)
 );
 CREATE UNIQUE INDEX PK_PAINTERS_ID ON PAINTERS(PAINTER_ID);
 --If a painter clashes on all of these, we will treat them as the same person.
@@ -19,8 +20,8 @@ CREATE SEQUENCE SEQ_PAINTERS
     START WITH 10
     INCREMENT BY 1;
 
-INSERT INTO PAINTERS values  (SEQ_PAINTERS.nextval, 'Vincent', 'van Gogh', 'The Little Painter Fellow', NULL, NULL, 'https://upload.wikimedia.org/wikipedia/commons/d/df/Van_Gogh_self_portrait_as_an_artist.jpg');
-INSERT INTO PAINTERS values  (SEQ_PAINTERS.nextval, 'San', 'of Africa', 'Pre-historic San People', NULL, NULL, 'https://en.wikipedia.org/wiki/San_people#/media/File:Namibian_Bushmen_Girls.JPG');
+INSERT INTO PAINTERS values  (SEQ_PAINTERS.nextval, 'Vincent', 'van Gogh', 'The Little Painter Fellow', NULL, NULL, 'https://upload.wikimedia.org/wikipedia/commons/d/df/Van_Gogh_self_portrait_as_an_artist.jpg',0);
+INSERT INTO PAINTERS values  (SEQ_PAINTERS.nextval, 'San', 'of Africa', 'Pre-historic San People', NULL, NULL, 'https://en.wikipedia.org/wiki/San_people#/media/File:Namibian_Bushmen_Girls.JPG',0);
 
 create table surface_types (
     id number (4) not null,

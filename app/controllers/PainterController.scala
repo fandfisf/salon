@@ -19,18 +19,20 @@ import scala.concurrent.ExecutionContext
 
 @Singleton
 class PainterController @Inject()(val repo: PainterRepository
-                                   , ws: WSClient
-                                   , actorSystem: ActorSystem)
-                                  (implicit exec: ExecutionContext) extends Controller {
+                                  , ws: WSClient
+                                  , actorSystem: ActorSystem)
+                                 (implicit exec: ExecutionContext) extends Controller {
+  val NewPainterId = -1
   implicit val painterWrites: Writes[Painter] = (
-    (JsPath \ "painterId").write[Int] and
-    (JsPath \ "firstName").write[String] and
+    (JsPath \ "painterId").write[Long] and
+      (JsPath \ "firstName").write[String] and
       (JsPath \ "lastName").write[String] and
       (JsPath \ "pseudonym").write[String] and
-      (JsPath \ "picture").write[String])(unlift(Painter.unapply)
+      (JsPath \ "picture").write[String] and
+      (JsPath \ "version").write[Int]) (unlift(Painter.unapply)
   )
 
-  def index = Action { implicit request =>
+  def find = Action { implicit request =>
     val paramsWithFirstValue = request.queryString.map { case (k, v) => k -> v(0) }
     paramsWithFirstValue.get("id") match {
       case Some(id) => {
@@ -40,4 +42,9 @@ class PainterController @Inject()(val repo: PainterRepository
     }
   }
 
+  def add = Action { implicit request =>
+    val paramsWithFirstValue = request.queryString.map { case (k, v) => k -> v(0) }
+    val painter = repo.insert(Painter(NewPainterId, "Oscar-Claude", "Monet", "Monet", "http://www.thefamouspeople.com/profiles/images/claude-monet-2.jpg", 0))
+    Ok(Json.toJson(painter))
+  }
 }
