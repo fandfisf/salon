@@ -1,22 +1,28 @@
-This is your new Play application
-=================================
+Why?
+====
+While play is an excellent framework, I had to do a lot of digging and only learned a little-bit each time. I wanted to help others if I could and get a "full-stack" application going that had no setup cost, but still provided a full-stack template including a working SQL as well as NOSQL database persistence. I hope this helps the community.
 
-This file will be packaged with your application when using `activator dist`.
 
-There are several demonstration files available in this template.
+Play Scala application for tracking painters and their work.
+===========================================================
+This application is derived from the "play-scala" template.
+Many of the components are not yet used in the application, however this will change as time goes on and I get a chance to polish it further.
 
 Controllers
 ===========
 
-- HomeController.scala:
+- PainterController.scala:
+  Returns single "Painter" record.
+
+- HomeController.scala: - NOT Used yet
 
   Shows how to handle simple HTTP requests.
 
-- AsyncController.scala:
+- AsyncController.scala: - NOT Used yet
 
   Shows how to do asynchronous programming when handling a request.
 
-- CountController.scala:
+- CountController.scala: - NOT Used yet
 
   Shows how to inject a component into a controller and use the component when
   handling requests.
@@ -28,11 +34,11 @@ Components
 
   Shows how to use Guice to bind all the components needed by your application.
 
-- Counter.scala:
+- Counter.scala: - NOT Used yet
 
   An example of a component that contains state, in this case a simple counter.
 
-- ApplicationTimer.scala:
+- ApplicationTimer.scala: - NOT Used yet
 
   An example of a component that starts when the application starts and stops
   when the application stops.
@@ -40,10 +46,10 @@ Components
 Filters
 =======
 
-- Filters.scala:
+- Filters.scala: - NOT Used yet
 
   Creates the list of HTTP filters used by your application.
 
-- ExampleFilter.scala
+- ExampleFilter.scala - NOT Used yet
 
   A simple filter that adds a header to every response.
