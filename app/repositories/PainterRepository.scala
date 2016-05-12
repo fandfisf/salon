@@ -9,18 +9,25 @@ import play.api.db.{Database, _}
   * Created by Prashant S Khanwale @ Suveda LLC  on 5/7/16.
   */
 trait PainterRepository {
-  def find(id: Int): Painter
+  def find(id: Long): Painter
 
   def upsert(painter: Painter): Painter
 
   def insert(painter: Painter): Painter
 
   def delete(painter: Painter): Boolean
+  implicit def  painterToMapEntry (p:Painter) : (Long, Painter) = {
+    p.painterId -> p
+  }
+  implicit def  painterToId (p:Painter) : Long = {
+    p.painterId
+  }
+
 }
 
 class PainterRepositoryImpl @Inject()(@NamedDatabase("default") database: Database) extends PainterRepository {
 
-  override def find(id: Int): Painter = {
+  override def find(id: Long): Painter = {
     database.withConnection { implicit c =>
       val result = SQL(
         s"""

@@ -1,7 +1,7 @@
 import com.google.inject.AbstractModule
 import java.time.Clock
 
-import repositories.{PainterRepository, PainterRepositoryImpl, EmployeeRepository, EmployeeRepositoryImpl}
+import repositories.{PainterRepository, PainterRepositoryImpl}
 import services.{ApplicationTimer, AtomicCounter, Counter}
 
 /**
@@ -24,7 +24,6 @@ class Module extends AbstractModule {
     bind(classOf[ApplicationTimer]).asEagerSingleton()
     // Set AtomicCounter as the implementation for Counter.
     bind(classOf[Counter]).to(classOf[AtomicCounter])
-    bind(classOf[EmployeeRepository]).to(classOf[EmployeeRepositoryImpl])
     bind (classOf[PainterRepository]).to(classOf[PainterRepositoryImpl])
   }
 
