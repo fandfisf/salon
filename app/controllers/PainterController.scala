@@ -29,8 +29,7 @@ class PainterController @Inject()(val repo: PainterRepository
 //      (JsPath \ "lastName").write[String] and
 //      (JsPath \ "pseudonym").write[String] and
 //      (JsPath \ "picture").write[String] and
-//      (JsPath \ "version").write[Int]) (unlift(Painter.unapply)
-//  )
+//      (JsPath \ "version").write[Int]) (unlift(Painter.unapply))
   def find(id: Option[Long]) = Action { implicit request =>
     id match {
       case Some(id) => {

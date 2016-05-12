@@ -12,9 +12,3 @@ trait FeedbackProvider {
 object FeedbackProvider extends FeedbackProvider {
 
 }
-//trait ResponseProvider [A]{
-//  implicit val responseWrites= Json.writes[Response[A]]
-//}
-//object ResponseProvider extends ResponseProvider{
-//
-//}
