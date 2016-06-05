@@ -3,7 +3,7 @@ package controllers
 import javax.inject._
 
 import akka.actor.ActorSystem
-import models.{Feedback, Painter}
+import models.Painter
 import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
 import play.api.mvc._
@@ -22,26 +22,28 @@ class PainterController @Inject()(val repo: PainterRepository
                                   , actorSystem: ActorSystem)
                                  (implicit exec: ExecutionContext) extends Controller with FeedbackProvider{
   val NewPainterId = -1
-  implicit val painterWrites = Json.writes[Painter]
-//  implicit val painterWrites: Writes[Painter] = (
-//    (JsPath \ "painterId").write[Long] and
-//      (JsPath \ "firstName").write[String] and
-//      (JsPath \ "lastName").write[String] and
-//      (JsPath \ "pseudonym").write[String] and
-//      (JsPath \ "picture").write[String] and
-//      (JsPath \ "version").write[Int]) (unlift(Painter.unapply))
-  def find(id: Option[Long]) = Action { implicit request =>
-    id match {
-      case Some(id) => {
-        val painter = repo.find(id)
-        Ok(Json.toJson(painter))
-      }
-      case _ => Ok(Json.toJson(Feedback("NO_ID_SUPPLIED", None)))
-    }
+
+  implicit def painterWrites = Json.writes[Painter]
+
+  implicit def painterReads = Json.reads[Painter]
+
+  def find(id: Long) = Action { implicit request =>
+    val painter = repo.find(id)
+    Ok(Json.toJson(painter))
   }
 
   def add = Action { implicit request =>
-    val painter = repo.insert(Painter(NewPainterId, "Oscar-Claude", "Monet", "Monet", "http://www.thefamouspeople.com/profiles/images/claude-monet-2.jpg", 0))
+    val painter = repo.insert(Painter(NewPainterId, "Oscar-Claude", "Monet", "Monet", None, None, "http://www.thefamouspeople.com/profiles/images/claude-monet-2.jpg", 0))
+    Ok(Json.toJson(painter))
+  }
+
+  def delete(id: Long) = Action { implicit request =>
+    val painter = repo.insert(Painter(NewPainterId, "Oscar-Claude", "Monet", "Monet", None, None, "http://www.thefamouspeople.com/profiles/images/claude-monet-2.jpg", 0))
+    Ok(Json.toJson(painter))
+  }
+
+  def update = Action { implicit request =>
+    val painter = repo.insert(Painter(NewPainterId, "Oscar-Claude", "Monet", "Monet", None, None, "http://www.thefamouspeople.com/profiles/images/claude-monet-2.jpg", 0))
     Ok(Json.toJson(painter))
   }
 }

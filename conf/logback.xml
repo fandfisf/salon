@@ -22,18 +22,16 @@
   </appender>
 
 
-  <logger name="play" level="DEBUG" />
+  <logger name="play" level="OFF"/>
   <logger name="application" level="DEBUG" />
 
   <!-- Off these ones as they are annoying, and anyway we manage configuration ourselves -->
-  <logger name="com.avaje.ebean.config.PropertyMapLoader" level="DEBUG" />
-  <logger name="com.avaje.ebeaninternal.server.core.XmlConfigLoader" level="DEBUG" />
-  <logger name="com.avaje.ebeaninternal.server.lib.BackgroundThread" level="DEBUG" />
-  <logger name="com.gargoylesoftware.htmlunit.javascript" level="DEBUG" />
+  <logger name="com.avaje" level="OFF"/>
+  <logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF"/>
+  <logger name="ch.qos" level="OFF"/>
 
-  <root level="WARN">
+  <root level="DEBUG">
     <appender-ref ref="ASYNCFILE" />
-    <appender-ref ref="STDOUT"/>
   </root>
 
 </configuration>
