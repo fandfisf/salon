@@ -62,6 +62,12 @@ CREATE UNIQUE INDEX PK_PAINTINGS_ID ON PAINTINGS(PAINTING_ID);
 
 insert into paintings values (1, 'View of Arles with Irises', 10, 1888, 1,1,
  'https://upload.wikimedia.org/wikipedia/commons/9/9f/VanGogh-View_of_Arles_with_Irises.jpg');
+
+create table LOBS_STORE(
+    LOB_ID NUMBER(15) NOT NULL,
+    BLOB_DATA BLOB,
+    CLOB_DATA CLOB
+)
 # --- !Downs
 DROP TABLE PAINTERS;
 DROP TABLE PAINTINGS;

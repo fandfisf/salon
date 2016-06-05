@@ -1,0 +1,31 @@
+<!-- https://www.playframework.com/documentation/latest/SettingsLogger -->
+<configuration>
+
+  <conversionRule conversionWord="coloredLevel" converterClass="play.api.libs.logback.ColoredLevel" />
+
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>${application.home:-.}/logs/application.log</file>
+    <encoder>
+      <pattern>%date [%level] from %logger in %thread - %message%n%xException</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="ASYNCFILE" class="ch.qos.logback.classic.AsyncAppender">
+    <append>false</append>
+    <appender-ref ref="FILE" />
+  </appender>
+
+
+  <logger name="play" level="OFF"/>
+  <logger name="application" level="DEBUG" />
+
+  <!-- Off these ones as they are annoying, and anyway we manage configuration ourselves -->
+  <logger name="com.avaje" level="OFF"/>
+  <logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF"/>
+  <logger name="ch.qos" level="OFF"/>
+
+  <root level="DEBUG">
+    <appender-ref ref="ASYNCFILE" />
+  </root>
+
+</configuration>

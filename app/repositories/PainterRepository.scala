@@ -13,14 +13,14 @@ trait PainterRepository {
   def namedParameters(painter: Painter): List[NamedParameter] = {
     import anorm.NamedParameter.symbol
     import painter._
-    List('painterId -> painterId, 'fn -> firstName, 'ln -> lastName, 'psn -> pseudonym, 'pict -> picture, 'version -> version)
+    List('painterId -> painterId, 'fn -> firstName, 'ln -> lastName, 'psn -> pseudonym, 'bd -> birthDate, 'dd -> dateOfDeath, 'pict -> picture, 'version -> version)
   }
 
   def find(id: Long): Option[Painter]
 
-  def upsert(painter: Painter): Painter
+  def save(painter: Painter): Option[Painter]
 
-  def insert(painter: Painter): Painter
+  def insert(painter: Painter): Option[Painter]
 
   def delete(painter: Painter): Boolean
 
@@ -55,23 +55,30 @@ class PainterRepositoryImpl @Inject()(@NamedDatabase("default") database: Databa
     "VERSION"
   )
 
-  override def insert(painter: Painter): Painter = {
-
+  override def insert(painter: Painter):Option[Painter] = {
       database.withConnection { implicit c =>
-        val id: Option[Long] = SQL(
+        val id:Option[Long]= SQL(
           s"""
-             insert into Painters values (
-               SEQ_PAINTERS.nextval,
-               '${painter.firstName}',
-               '${painter.lastName}',
-               '${painter.pseudonym}',
-               null,
-               null,
-               '${painter.picture}',
-               ${painter.version})
-             """)
-          .executeInsert()
-        Painter(id.get, painter.firstName, painter.lastName, painter.pseudonym, None, None, painter.picture, painter.version)
+             |insert into Painters(
+             |    SEQ_PAINTERS.nextval,
+             |    FIRST_NAME,
+             |    LAST_NAME,
+             |    PSEUDONYM,
+             |    BIRTH_DATE"
+             |    DATE_OF_DEATH,
+             |    PICTURE,
+             |    VERSION
+             |   ) values (
+             |    SEQ_PAINTERS.nextval,
+             |    {fn},
+             |    {ln},
+             |    {psn},
+             |    {bd},
+             |    {dd},
+             |    {picture},
+             |    {version})
+             |    """).on(namedParameters(painter):_*).executeInsert()
+        Option(Painter(id.get, painter.firstName, painter.lastName, painter.pseudonym, None, None, painter.picture, painter.version))
       }
   }
 
@@ -79,7 +86,7 @@ class PainterRepositoryImpl @Inject()(@NamedDatabase("default") database: Databa
     false
   }
 
-  override def upsert(painter: Painter): Painter = {
-    null
+  override def save(painter: Painter): Option[Painter] = {
+    None
   }
 }

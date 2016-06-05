@@ -17,7 +17,7 @@ case class Painter(
                     birthDate: Option[Date],
                     dateOfDeath: Option[Date],
                     picture: String,
-                    version: Int)
+                    version: Long)
 object Painter {
 
   implicit def  painterToMapEntry (p:Painter) : (Long, Painter) = {
